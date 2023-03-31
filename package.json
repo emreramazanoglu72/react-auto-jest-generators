@@ -1,21 +1,24 @@
 {
-  "name": "react-auto-jest-generator",
+  "name": "react-auto-jest-generators",
   "version": "1.0.0",
   "description": "react auto jest generator",
   "main": "index.js",
+  "bin": {
+    "react-auto-jest-generator": "./index.js"
+  },
   "scripts": {
-    "test": "node node_modules/react-auto-jest-generator/index.js"
+    "test": "node node_modules/react-auto-jest-generators/index.js"
   },
   "author": "Emre Ramazanoğlu",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/emreramazanoglu72/react-auto-jest-generator.git"
+    "url": "https://github.com/emreramazanoglu72/react-auto-jest-generators.git"
   },
   "bugs": {
-    "url": "https://github.com/emreramazanoglu72/react-auto-jest-generator/issues"
+    "url": "https://github.com/emreramazanoglu72/react-auto-jest-generators/issues"
   },
-  "homepage": "https://github.com/emreramazanoglu72/react-auto-jest-generator#readme",
+  "homepage": "https://github.com/emreramazanoglu72/react-auto-jest-generators#readme",
   "dependencies": {
     "chatgpt": "^5.1.3",
     "fs": "^0.0.1-security",
