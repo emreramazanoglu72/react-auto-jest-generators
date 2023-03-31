@@ -3,6 +3,7 @@
   "version": "1.0.2",
   "description": "react auto jest generator",
   "main": "index.js",
+  "type": "module",
   "bin": {
     "react-auto-jest-generator": "./index.js"
   },
