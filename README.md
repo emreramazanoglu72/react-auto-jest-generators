@@ -8,17 +8,21 @@ You can install React Auto Jest Generator using NPM:
 
 
 ```bash
-npm install react-auto-jest-generator
+npm install react-auto-jest-generators
 ```
+
+
+
 
 # Usage
 
-![Uygulama Ekran Görüntüsü](https://raw.githubusercontent.com/emreramazanoglu72/react-auto-jest-generators/main/usage.gif)
+https://user-images.githubusercontent.com/73821776/229008247-e12d0e19-5cdc-4ddb-b27a-b7f54ca9b696.mp4
+
 
 After installation, you can run the tool using the following command:
 
 ```bash
-npx react-auto-jest-generator
+npx react-auto-jest-generators
 
 ```
 
@@ -29,4 +33,3 @@ If you would like to contribute to this project, feel free to create a pull requ
 
 ### Other Projects
 Be sure to check out my GitHub profile for other open-source projects: https://github.com/emreramazanoglu72
-
