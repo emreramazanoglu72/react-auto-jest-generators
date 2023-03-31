@@ -5,16 +5,36 @@ import readline from "readline";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const chatGPT = new ChatGPTAPI({
-  apiKey: ""
-});
+const __dirname = path.dirname(path.dirname(path.dirname(__filename)));
+const txtFilePath = path.join(path.dirname(__filename), "api_key.txt");
+
+let chatGPT;
+
+console.log(__dirname);
 
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
 
+function readApiKeyFromFile(filePath, callback) {
+  fs.readFile(filePath, "utf-8", (err, data) => {
+    if (err) {
+      callback(err);
+    } else {
+      const apiKey = data.trim();
+      if (apiKey) {
+        callback(null, apiKey);
+      } else {
+        callback(new Error("Api key not found in file."));
+      }
+    }
+  });
+}
+
+function writeApiKeyToFile(filePath, apiKey) {
+  fs.writeFileSync(filePath, apiKey.trim());
+}
 function showWelcomeScreen() {
   console.log("##########################################");
   console.log("#                                        #");
@@ -22,13 +42,21 @@ function showWelcomeScreen() {
   console.log("#                                        #");
   console.log("#      React js Auto Jest Tool           #");
   console.log("#      Author: Emre Ramazanoglu          #");
-  console.log("#      Girhub: emreramazanoglu72         #");
+  console.log("#      Github: emreramazanoglu72         #");
   console.log("#                                        #");
   console.log("##########################################");
 
-  rl.question("Please enter your Chat GPT API key  : ", apiKey => {
-    chatGPT.apiKey = apiKey;
-    checkQuestion();
+  readApiKeyFromFile(txtFilePath, (err, apiKey) => {
+    if (err) {
+      rl.question("Please enter your Chat GPT API key: ", apiKey => {
+        chatGPT = new ChatGPTAPI({ apiKey });
+        writeApiKeyToFile(txtFilePath, apiKey);
+        checkQuestion();
+      });
+    } else {
+      chatGPT = new ChatGPTAPI({ apiKey });
+      checkQuestion();
+    }
   });
 }
 // JavaScript dosyalarını tarayacak fonksiyon
@@ -66,13 +94,14 @@ function readFiles(dirname, onFileContent, onError) {
       });
     });
   });
+
+  return true;
 }
 
-async function createTestFiles() {
-  console.log("işlem başlatıldı\n");
+ function createTestFiles() {
   typeWriter("#################################", 15);
   const dirPath = path.join(__dirname);
-  readFiles(
+   readFiles(
     dirPath + "/",
     async function(filename, content, filePath) {
       const fileSavePath = path.dirname(filePath);
@@ -87,6 +116,7 @@ async function createTestFiles() {
       const regex = /```([\s\S]*?)```/g;
       const matches = response.text.match(regex);
       if (matches == null) return false;
+
       let testCode = matches[0]
         .replace("```", "// \nimport '@testing-library/jest-dom';")
         .replace("```", "//");
@@ -106,6 +136,7 @@ async function createTestFiles() {
       console.log(err);
     }
   );
+  return true;
 }
 
 function installJest() {
@@ -173,14 +204,15 @@ function typeWriter(text, delay = 50) {
 }
 
 // Kullanım örneği
-function checkQuestion() {
+async function checkQuestion() {
   console.log("1:Check jest Setup");
   console.log("2:Generate Test Files");
-  rl.question("Vote : ", answer => {
+  rl.question("Vote : ", async answer => {
     if (answer === "1") {
       checkJest();
     } else if (answer === "2") {
-      createTestFiles();
+      console.log("Transaction started\n");
+      await createTestFiles();
     }
   });
 }
