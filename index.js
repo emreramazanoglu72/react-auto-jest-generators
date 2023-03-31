@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { ChatGPTAPI } from "chatgpt";
 import fs, { existsSync, readFileSync, writeFileSync } from "fs";
 import path from "path";
