@@ -1,5 +1,6 @@
 node_modules/
 *.log
+*.lock
 *.pid
 *.swp
 .DS_Store
