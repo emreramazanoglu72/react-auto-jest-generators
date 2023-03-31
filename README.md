@@ -12,6 +12,9 @@ npm install react-auto-jest-generator
 ```
 
 # Usage
+
+![Uygulama Ekran Görüntüsü](https://raw.githubusercontent.com/emreramazanoglu72/react-auto-jest-generators/main/usage.gif)
+
 After installation, you can run the tool using the following command:
 
 ```bash
